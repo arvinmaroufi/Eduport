@@ -1,0 +1,39 @@
+{% extends 'base-enter.html' %}
+{% block title %} verify code | تایید کد {% endblock %}
+{% load static %}
+{% block content %}
+    <div class="col-12 col-lg-6 d-flex justify-content-center">
+        <div class="row my-5">
+            <div class="col-sm-10 col-xl-12 m-auto">
+                <!-- Title -->
+                <span class="mb-0 fs-1">📧</span>
+                <h1 class="fs-4">تایید کد</h1>
+                <h5 class="fw-light mb-4">برای عوض کردن رمز عبور , کد ارسال شده را وارد نمایید.</h5>
+                <!-- Form START -->
+                <form method="post">
+                {% csrf_token %}
+                    <!-- Email -->
+                    <div class="mb-4">
+                        <label for="exampleInputEmail1" class="form-label">کد تایید *</label>
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="bi bi-envelope-fill"></i></span>
+                            {{ form.code }}
+                        </div>
+                    </div>
+                    <!-- Button -->
+                    <div class="align-items-center">
+                        <div class="d-grid">
+                            <button class="btn btn-primary mb-0">مرحله بعد</button>
+                        </div>
+                    </div>
+                    {% if messages %}
+                      {% for message in messages %}
+                        <p style="color: red">{{ message }}</p>
+                      {% endfor %}
+                    {% endif %}
+                </form>
+                <!-- Form END -->
+            </div>
+        </div> <!-- Row END -->
+    </div>
+{% endblock %}
