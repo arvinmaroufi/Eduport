@@ -147,6 +147,9 @@
   --bs-form-valid-border-color: #198754;
   --bs-form-invalid-color: #dc3545;
   --bs-form-invalid-border-color: #dc3545;
+  .my-class-1{
+    background: none;
+  }
 }
 
 [data-bs-theme=dark] {
@@ -203,6 +206,9 @@
   --bs-form-valid-border-color: #75b798;
   --bs-form-invalid-color: #ea868f;
   --bs-form-invalid-border-color: #ea868f;
+  .my-class-1{
+    background-color: #ffffff;
+  }
 }
 
 *,
@@ -22585,6 +22591,22 @@ html[dir=rtl] .choices__input {
 }
 .upload-button{
 	border: 1px solid var(--bs-gray-300);
+}
+
+.carousel-control-next{
+  opacity: 1;
+}
+
+.carousel-control-next:hover{
+  opacity: 1;
+}
+
+.carousel-control-prev{
+  opacity: 1;
+}
+
+.carousel-control-prev:hover{
+  opacity: 1;
 }
 
 /*User CSS*/

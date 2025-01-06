@@ -1,0 +1,397 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+{% block title %}دوره های {{ category.title }}{% endblock %}
+
+{% block content %}
+
+    <!-- **************** MAIN CONTENT START **************** -->
+    <main>
+
+        <!-- =======================
+        Page Banner START -->
+        <section class="bg-blue align-items-center d-flex"
+                 style="background:url({% static 'main/images/pattern/04.png' %}) no-repeat center center; background-size:cover;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <!-- Title -->
+                        <h1 class="text-white fs-2">دوره های {{ category.title }}</h1>
+                        <!-- Breadcrumb -->
+                        <div class="d-flex justify-content-center">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb breadcrumb-dark breadcrumb-dots mb-0">
+                                    <li class="breadcrumb-item"><a href="{% url 'CourseApp:home' %}">صفحه اصلی</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ category.title }}</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- =======================
+        Page Banner END -->
+
+        <!-- =======================
+        Page content START -->
+        <section class="py-5">
+            <div class="container">
+                <div class="row">
+                    <!-- Main content START -->
+                    <div class="col-lg-8 col-xl-9">
+
+                        <!-- Search option START -->
+                        <div class="row mb-4 align-items-center">
+                            <!-- Select option -->
+                            <div class="col-xl-3 mt-3 mt-xl-0">
+                                <form class="border rounded p-2 input-borderless">
+                                    <select class="form-select form-select-sm js-choice border-0"
+                                            aria-label=".form-select-sm">
+                                        <option value="">پربازدید ترین</option>
+                                        <option>بروزترین</option>
+                                        <option>پرفروش ترین</option>
+                                        <option>جدیدترین</option>
+                                    </select>
+                                </form>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="col-12 col-xl-3 d-flex justify-content-between align-items-center mt-3 mt-xl-0">
+                                <!-- Advanced filter responsive toggler START -->
+                                <button class="btn btn-primary mb-0 d-lg-none" type="button" data-bs-toggle="offcanvas"
+                                        data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
+                                    <i class="fas fa-sliders-h me-1"></i> نمایش فیلتر
+                                </button>
+                                <!-- Advanced filter responsive toggler END -->
+                                <p class="mb-0 text-end">نمایش 1-7 از 32 نتیجه</p>
+                            </div>
+
+                        </div>
+                        <!-- Search option END -->
+
+                        <!-- Course Grid START -->
+                        <div class="row g-4">
+
+                            <!-- Card item START -->
+                            {% for course in courses %}
+                                <div class="col-sm-6 col-xl-4">
+                                    <div class="card shadow h-100">
+                                        <!-- Image -->
+                                        <a href="{{ course.get_absolute_url }}">
+                                            {% if course.thumbnail %}
+                                                <img src="{{ course.thumbnail.url }}" style="object-fit: cover;" class="card-img-top h-200px w-100" alt="{{ course.title }}">
+                                            {% else %}
+                                                <img src="{% static 'main/images/image_not_available.jpg' %}" style="object-fit: cover;" class="card-img-top h-200px w-100" alt="{{ course.title }}">
+                                            {% endif %}
+                                        </a>
+                                        <!-- Card body -->
+                                        <div class="card-body pb-0">
+                                            <!-- Badge and favorite -->
+                                            <div class="d-flex justify-content-between mb-2">
+                                                {% if course.level == 'introductory' %}
+                                                    <span class="badge bg-success bg-opacity-10 text-success">{{ course.get_level_display }}</span>
+                                                {% endif %}
+                                                {% if course.level == 'advanced' %}
+                                                    <span class="badge bg-danger bg-opacity-10 text-danger">{{ course.get_level_display }}</span>
+                                                {% endif %}
+                                                {% if course.level == 'introductory_advanced' %}
+                                                    <span class="badge bg-purple bg-opacity-10 text-purple">{{ course.get_level_display }}</span>
+                                                {% endif %}
+                                            </div>
+                                            <!-- Title -->
+                                            <h5 class="card-title fw-normal"><a href="{{ course.get_absolute_url }}">{{ course.title }}</a></h5>
+                                            <div class="d-flex justify-content-between mt-4">
+                                                <span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>{{ course.formatted_duration }}</span>
+                                                <span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>{{ course.video_count }} ویدیو</span>
+                                            </div>
+                                        </div>
+                                        <!-- Card footer -->
+                                        <div class="card-footer pt-0 pb-3">
+                                            <hr>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar avatar-sm">
+                                                        <img class="avatar-img rounded-1" src="{% static 'main/images/avatar/10.jpg' %}" alt="avatar">
+                                                    </div>
+                                                    <p class="mb-0 ms-2"><a href="#" class="h6 fw-light mb-0">{{ course.teacher }}</a></p>
+                                                </div>
+                                                <div>
+                                                    {% if course.is_paid == 'premium' %}
+                                                        <h5 style="text-align: left" class="text-success mb-0 item-show">{{ course.price|format_price }} تومان</h5>
+                                                    {% else %}
+                                                        <h5 style="text-align: left" class="text-success mb-0 item-show">رایگان</h5>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <!-- Card item END -->
+                        </div>
+                        <!-- Course Grid END -->
+
+                        <!-- Pagination START -->
+                        <div class="col-12">
+                            <nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
+                                {% if courses.has_other_pages %}
+                                    <ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+                                        {% if courses.has_previous %}
+                                            <li class="page-item mb-0"><a class="page-link" href="?page={{ courses.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}" tabindex="-1"><i class="fas fa-angle-double-right"></i></a></li>
+                                        {% endif %}
+                                        {% for page in pages_to_show %}
+                                            {% if page == '...' %}
+                                                <li class="page-item mb-0 page-link">...</li>
+                                            {% elif courses.number == page %}
+                                                <li class="page-item mb-0 active" aria-current="page">
+                                                    <a class="page-link" href="?page={{ page }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ page }}</a>
+                                                </li>
+                                            {% else %}
+                                                <li class="page-item mb-0" aria-current="page">
+                                                    <a class="page-link" href="?page={{ page }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ page }}</a>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if courses.has_next %}
+                                            <li class="page-item mb-0"><a class="page-link" href="?page={{ courses.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}"><i class="fas fa-angle-double-left"></i></a></li>
+                                        {% endif %}
+                                    </ul>
+                                {% endif %}
+                            </nav>
+                        </div>
+                        <!-- Pagination END -->
+                    </div>
+                    <!-- Main content END -->
+
+                    <!-- Right sidebar START -->
+                    <div class="col-lg-4 col-xl-3">
+                        <!-- Responsive offcanvas body START -->
+                        <div class="offcanvas-lg offcanvas-end" tabindex="-1" id="offcanvasSidebar">
+                            <div class="offcanvas-header bg-light">
+                                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">جستجوی پیشرفته</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                        data-bs-target="#offcanvasSidebar" aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body p-3 p-lg-0">
+                                <form>
+                                    <!-- Category START -->
+                                    <div class="card card-body shadow p-4 mb-4">
+                                        <!-- Title -->
+                                        <h4 class="mb-3 fs-6">فیلتر دسته بندی</h4>
+                                        <!-- Category group -->
+                                        <div class="col-12">
+                                            <!-- Checkbox -->
+                                            {% for category in categories %}
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault9">
+                                                        <label class="form-check-label" for="flexCheckDefault9">{{ category.title }}</label>
+                                                    </div>
+                                                    <span class="small">({{ category.courses.count }})</span>
+                                                </div>
+                                            {% endfor %}
+                                            <!-- Collapse body -->
+                                            <div class="collapse multi-collapse" id="multiCollapseExample1">
+                                                <div class="card card-body p-0">
+                                                    <!-- Checkbox -->
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value=""
+                                                                   id="flexCheckDefault16">
+                                                            <label class="form-check-label" for="flexCheckDefault16">طراحی
+                                                                سایت</label>
+                                                        </div>
+                                                        <span class="small">(178)</span>
+                                                    </div>
+                                                    <!-- Checkbox -->
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value=""
+                                                                   id="flexCheckDefault18">
+                                                            <label class="form-check-label"
+                                                                   for="flexCheckDefault18">سئو</label>
+                                                        </div>
+                                                        <span class="small">(104)</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Collapse button -->
+                                            <a class=" p-0 mb-0 mt-2 btn-more d-flex align-items-center"
+                                               data-bs-toggle="collapse" href="#multiCollapseExample1" role="button"
+                                               aria-expanded="false" aria-controls="multiCollapseExample1">
+                                                مشاهده <span class="see-more ms-1">بیشتر</span><span
+                                                    class="see-less ms-1">کمتر</span><i
+                                                    class="fas fa-angle-down ms-2"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- Category END -->
+
+                                    <!-- Price START -->
+                                    <div class="card card-body shadow p-4 mb-4">
+                                        <!-- Title -->
+                                        <h4 class="mb-3 fs-6">فیلتر براساس قیمت</h4>
+                                        <ul class="list-inline mb-0">
+                                            <!-- Rent -->
+                                            <li class="list-inline-item">
+                                                <input type="radio" class="btn-check" name="options" id="option1">
+                                                <label class="btn btn-light btn-primary-soft-check" for="option1">همه</label>
+                                            </li>
+                                            <!-- Sale -->
+                                            <li class="list-inline-item">
+                                                <input type="radio" class="btn-check" name="options" id="option2">
+                                                <label class="btn btn-light btn-primary-soft-check" for="option2">رایگان</label>
+                                            </li>
+                                            <!-- Buy -->
+                                            <li class="list-inline-item">
+                                                <input type="radio" class="btn-check" name="options" id="option3">
+                                                <label class="btn btn-light btn-primary-soft-check" for="option3">پولی</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- Price END -->
+
+                                    <!-- Status START -->
+                                    <div class="card card-body shadow p-4 mb-4">
+                                        <!-- Title -->
+                                        <h4 class="mb-3 fs-6">فیلتر براساس وضعیت دوره</h4>
+                                        <ul class="list-inline mb-0">
+                                            <!-- Rent -->
+                                            <li class="list-inline-item">
+                                                <input type="radio" class="btn-check" name="options" id="option1">
+                                                <label class="btn btn-light btn-primary-soft-check" for="option1">همه</label>
+                                            </li>
+                                            <!-- Sale -->
+                                            <li class="list-inline-item">
+                                                <input type="radio" class="btn-check" name="options" id="option2">
+                                                <label class="btn btn-light btn-primary-soft-check"
+                                                       for="option2">تکمیل شده</label>
+                                            </li>
+                                            <!-- Buy -->
+                                            <li class="list-inline-item">
+                                                <input type="radio" class="btn-check" name="options" id="option3">
+                                                <label class="btn btn-light btn-primary-soft-check"
+                                                       for="option3">درحال برگزاری</label>
+                                            </li>
+                                            <!-- Buy -->
+                                            <li class="list-inline-item">
+                                                <input type="radio" class="btn-check" name="options" id="option3">
+                                                <label class="btn btn-light btn-primary-soft-check"
+                                                       for="option3">شروع به زودی</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- Status END -->
+
+                                    <!-- Skill level START -->
+                                    <div class="card card-body shadow p-4 mb-4">
+                                        <!-- Title -->
+                                        <h4 class="mb-3 fs-6">فیلتر براساس سطح دوره</h4>
+                                        <ul class="list-inline mb-0">
+                                            <!-- Item -->
+                                            <li class="list-inline-item mb-2">
+                                                <input type="checkbox" class="btn-check" id="btn-check-12">
+                                                <label class="btn btn-light btn-primary-soft-check" for="btn-check-12">همه
+                                                    سطح</label>
+                                            </li>
+                                            <!-- Item -->
+                                            <li class="list-inline-item mb-2">
+                                                <input type="checkbox" class="btn-check" id="btn-check-9">
+                                                <label class="btn btn-light btn-primary-soft-check" for="btn-check-9">مقدماتی</label>
+                                            </li>
+                                            <!-- Item -->
+                                            <li class="list-inline-item mb-2">
+                                                <input type="checkbox" class="btn-check" id="btn-check-10">
+                                                <label class="btn btn-light btn-primary-soft-check" for="btn-check-10">پیشرفته</label>
+                                            </li>
+                                            <!-- Item -->
+                                            <li class="list-inline-item mb-2">
+                                                <input type="checkbox" class="btn-check" id="btn-check-11">
+                                                <label class="btn btn-light btn-primary-soft-check" for="btn-check-11">مقدماتی تا پیشرفته</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- Skill level END -->
+                                </form><!-- Form End -->
+                            </div>
+
+                            <!-- Button -->
+                            <div class="d-grid p-2 p-lg-0 text-center">
+                                <button class="btn btn-primary mb-0">نتیجه فیلتر</button>
+                            </div>
+
+                        </div>
+                        <!-- Responsive offcanvas body END -->
+                    </div>
+                    <!-- Right sidebar END -->
+                </div><!-- Row END -->
+            </div>
+        </section>
+        <!-- =======================
+        Page content END -->
+
+        <!-- =======================
+        Newsletter START -->
+        <section class="pt-0">
+            <div class="container position-relative overflow-hidden">
+                <!-- SVG decoration -->
+                <figure class="position-absolute top-50 start-50 translate-middle ms-3">
+                    <svg>
+                        <path d="m496 22.999c0 10.493-8.506 18.999-18.999 18.999s-19-8.506-19-18.999 8.507-18.999 19-18.999 18.999 8.506 18.999 18.999z"
+                              fill="#fff" fill-rule="evenodd" opacity=".502"/>
+                        <path d="m775 102.5c0 5.799-4.701 10.5-10.5 10.5-5.798 0-10.499-4.701-10.499-10.5 0-5.798 4.701-10.499 10.499-10.499 5.799 0 10.5 4.701 10.5 10.499z"
+                              fill="#fff" fill-rule="evenodd" opacity=".102"/>
+                        <path d="m192 102c0 6.626-5.373 11.999-12 11.999s-11.999-5.373-11.999-11.999c0-6.628 5.372-12 11.999-12s12 5.372 12 12z"
+                              fill="#fff" fill-rule="evenodd" opacity=".2"/>
+                        <path d="m20.499 10.25c0 5.66-4.589 10.249-10.25 10.249-5.66 0-10.249-4.589-10.249-10.249-0-5.661 4.589-10.25 10.249-10.25 5.661-0 10.25 4.589 10.25 10.25z"
+                              fill="#fff" fill-rule="evenodd" opacity=".2"/>
+                    </svg>
+                </figure>
+                <!-- Svg decoration -->
+                <figure class="position-absolute bottom-0 end-0 mb-5 d-none d-sm-block">
+                    <svg class="rotate-130" width="258.7px" height="86.9px" viewBox="0 0 258.7 86.9">
+                        <path stroke="white" fill="none" stroke-width="2"
+                              d="M0,7.2c16,0,16,25.5,31.9,25.5c16,0,16-25.5,31.9-25.5c16,0,16,25.5,31.9,25.5c16,0,16-25.5,31.9-25.5 c16,0,16,25.5,31.9,25.5c16,0,16-25.5,31.9-25.5c16,0,16,25.5,31.9,25.5s16-25.5,31.9-25.5"/>
+                        <path stroke="white" fill="none" stroke-width="2"
+                              d="M0,57c16,0,16,25.5,31.9,25.5c16,0,16-25.5,31.9-25.5c16,0,16,25.5,31.9,25.5c16,0,16-25.5,31.9-25.5 c16,0,16,25.5,31.9,25.5c16,0,16-25.5,31.9-25.5c16,0,16,25.5,31.9,25.5s16-25.5,31.9-25.5"/>
+                    </svg>
+                </figure>
+
+                <div class="bg-grad-pink p-3 p-sm-5 rounded-3">
+                    <div class="row justify-content-center position-relative">
+                        <!-- SVG decoration -->
+                        <figure class="fill-white opacity-1 position-absolute top-50 start-0 translate-middle-y">
+                            <svg width="141px" height="141px">
+                                <path d="M140.520,70.258 C140.520,109.064 109.062,140.519 70.258,140.519 C31.454,140.519 -0.004,109.064 -0.004,70.258 C-0.004,31.455 31.454,-0.003 70.258,-0.003 C109.062,-0.003 140.520,31.455 140.520,70.258 Z"/>
+                            </svg>
+                        </figure>
+                        <!-- Newsletter -->
+                        <div class="col-12 position-relative my-2 my-sm-3">
+                            <div class="row align-items-center">
+                                <!-- Title -->
+                                <div class="col-lg-6">
+                                    <h3 class="text-white mb-3 mb-lg-0 ff-vb">دریافت جدیدترین به‌روزرسانی‌های دوره، در
+                                        خبرنامه ما</h3>
+                                </div>
+                                <!-- Input item -->
+                                <div class="col-lg-6 text-lg-end">
+                                    <form class="bg-body rounded p-2">
+                                        <div class="input-group">
+                                            <input class="form-control border-0 me-1" type="email" placeholder="ایمیل">
+                                            <button type="button" class="btn btn-dark mb-0 rounded">عضویت</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- Row END -->
+                </div>
+            </div>
+        </section>
+        <!-- =======================
+        Newsletter END -->
+
+    </main>
+    <!-- **************** MAIN CONTENT END **************** -->
+{% endblock %}

@@ -1,0 +1,475 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+{% block title %}ادوپورت - آموزش برنامه نویسی{% endblock %}
+
+{% block content %}
+    <!-- **************** MAIN CONTENT START **************** -->
+    <main>
+
+        <!-- =======================
+        Main Banner START -->
+        <section class="position-relative overflow-hidden pt-5 pt-lg-3">
+            <div style="margin-left: 5%; margin-right: 5%;">
+                <div class="row">
+                    <div id="carouselExampleControlsNoTouching" class="carousel slide carousel-fade"
+                         data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active rounded-4">
+                                <a href="#"><img src="{% static 'main/images/01.png' %}" class="d-block w-100 img-fluid rounded-4 h-lg-400px h-sm-200" style="object-fit: cover;" alt="..."></a>
+                            </div>
+                            <div class="carousel-item rounded-4">
+                                <a href="#"><img src="{% static 'main/images/02.png' %}" class="d-block w-100 img-fluid rounded-4 h-lg-400px h-sm-200" style="object-fit: cover;" alt="..."></a>
+                            </div>
+                            <div class="carousel-item rounded-4">
+                                <a href="#"><img src="{% static 'main/images/03.png' %}" class="d-block w-100 img-fluid rounded-4 h-lg-400px h-sm-200" style="object-fit: cover;" alt="..."></a>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button"
+                                data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white"
+                                 class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                                <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
+                            </svg>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button"
+                                data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white"
+                                 class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+                                <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
+                            </svg>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- =======================
+        Main Banner END -->
+
+        <!-- =======================
+        Counter START -->
+        <section class="py-0 py-xl-5">
+            <div class="container">
+                <div class="row g-4">
+                    <!-- Counter item -->
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="d-flex justify-content-center align-items-center p-4 bg-warning bg-opacity-15 rounded-3">
+                            <span class="display-6 lh-1 text-warning mb-0"><i class="fas fa-tv"></i></span>
+                            <div class="ms-4 h6 fw-normal mb-0">
+                                <div class="d-flex">
+                                    <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0"
+                                        data-purecounter-end="10" data-purecounter-delay="200">0</h5>
+                                    <span class="mb-0 h5">دوره</span>
+                                </div>
+                                <p class="mb-0">آموزش آنلاین</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Counter item -->
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="d-flex justify-content-center align-items-center p-4 bg-blue bg-opacity-10 rounded-3">
+                            <span class="display-6 lh-1 text-blue mb-0"><i class="fas fa-user-tie"></i></span>
+                            <div class="ms-4 h6 fw-normal mb-0">
+                                <div class="d-flex">
+                                    <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0"
+                                        data-purecounter-end="200" data-purecounter-delay="200">0</h5>
+                                    <span class="mb-0 h5">مـدرس</span>
+                                </div>
+                                <p class="mb-0">مجرب و باسابقه</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Counter item -->
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="d-flex justify-content-center align-items-center p-4 bg-purple bg-opacity-10 rounded-3">
+                            <span class="display-6 lh-1 text-purple mb-0"><i class="fas fa-user-graduate"></i></span>
+                            <div class="ms-4 h6 fw-normal mb-0">
+                                <div class="d-flex">
+                                    <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0"
+                                        data-purecounter-end="60" data-purecounter-delay="200">0</h5>
+                                    <span class="mb-0 h5">هنرجـو</span>
+                                </div>
+                                <p class="mb-0">دانشجوی آنلاین</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Counter item -->
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="d-flex justify-content-center align-items-center p-4 bg-info bg-opacity-10 rounded-3">
+                            <span class="display-6 lh-1 text-info mb-0"><i class="bi bi-patch-check-fill"></i></span>
+                            <div class="ms-4 h6 fw-normal mb-0">
+                                <div class="d-flex">
+                                    <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0"
+                                        data-purecounter-end="6" data-purecounter-delay="300">0</h5>
+                                    <span class="mb-0 h5">مدرک بین المللی</span>
+                                </div>
+                                <p class="mb-0">دوره های گواهی شده</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- =======================
+        Counter END -->
+
+        <!-- =======================
+        Latest Update START -->
+        <section>
+            <div class="container">
+                <!-- Title -->
+                <div class="row mb-4">
+                    <div class="col-lg-8">
+                        <h2 style="text-align: right" class="fs-3">آخرین بروزرسانی ها</h2>
+                    </div>
+                </div>
+
+                <!-- Tabs content START -->
+                <div class="tab-content" id="course-pills-tabContent">
+                    <!-- Content START -->
+                    <div class="tab-pane fade show active" id="course-pills-tabs-1" role="tabpanel"
+                         aria-labelledby="course-pills-tab-1">
+                        <div class="row g-4">
+
+                            <!-- Card item START -->
+                            {% for course in latest_update %}
+                                <div class="col-sm-6 col-lg-4 col-xl-3">
+                                    <div class="card shadow h-100">
+                                        <!-- Image -->
+                                        <a href="{{ course.get_absolute_url }}">
+                                            {% if course.thumbnail %}
+                                                <img src="{{ course.thumbnail.url }}"
+                                                     class="card-img-top  h-200px w-100" style="object-fit: cover;"
+                                                     alt="{{ course.title }}">
+                                            {% else %}
+                                                <img src="{% static 'main/images/image_not_available.jpg' %}"
+                                                     class="card-img-top  h-200px w-100" style="object-fit: cover;"
+                                                     alt="{{ course.title }}">
+                                            {% endif %}
+                                        </a>
+                                        <!-- Card body -->
+                                        <div class="card-body pb-0">
+                                            <!-- Badge and favorite -->
+                                            <div class="d-flex justify-content-between mb-2">
+                                                {% if course.level == 'introductory' %}
+                                                    <span class="badge bg-success bg-opacity-10 text-success">{{ course.get_level_display }}</span>
+                                                {% endif %}
+                                                {% if course.level == 'advanced' %}
+                                                    <span class="badge bg-danger bg-opacity-10 text-danger">{{ course.get_level_display }}</span>
+                                                {% endif %}
+                                                {% if course.level == 'introductory_advanced' %}
+                                                    <span class="badge bg-purple bg-opacity-10 text-purple">{{ course.get_level_display }}</span>
+                                                {% endif %}
+                                            </div>
+                                            <!-- Title -->
+                                            <h5 class="card-title fw-normal"><a
+                                                    href="{{ course.get_absolute_url }}">{{ course.title }}</a>
+                                            </h5>
+                                            <div class="d-flex justify-content-between mt-4">
+                                                <span class="h6 fw-light mb-0"><i
+                                                        class="far fa-clock text-danger me-2"></i>{{ course.formatted_duration }}</span>
+                                                <span class="h6 fw-light mb-0"><i
+                                                        class="fas fa-table text-orange me-2"></i>{{ course.video_count }} ویدیو</span>
+                                            </div>
+                                            {#<p class="mb-2 text-truncate-2">{{ course.description|safe|truncatewords:13 }}</p>#}
+                                        </div>
+                                        <!-- Card footer -->
+                                        <div class="card-footer pt-0 pb-3">
+                                            <hr>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar avatar-sm">
+                                                        <img class="avatar-img rounded-1"
+                                                             src="{% static 'main/images/avatar/10.jpg' %}"
+                                                             alt="avatar">
+                                                    </div>
+                                                    <p class="mb-0 ms-2"><a href="#"
+                                                                            class="h6 fw-light mb-0">{{ course.teacher }}</a>
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    {% if course.is_paid == 'premium' %}
+                                                        <h5 style="text-align: left"
+                                                            class="text-success mb-0 item-show">{{ course.price|format_price }} تومان</h5>
+                                                    {% else %}
+                                                        <h5 style="text-align: left"
+                                                            class="text-success mb-0 item-show">رایگان</h5>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <!-- Card item END -->
+
+                        </div> <!-- Row END -->
+                    </div>
+                    <!-- Content END -->
+                </div>
+                <!-- Tabs content END -->
+            </div>
+        </section>
+        <!-- =======================
+        Latest Update END -->
+
+        <!-- =======================
+        Latest course START -->
+        <section>
+            <div class="container">
+                <!-- Title -->
+                <div class="row mb-4">
+                    <div class="col-lg-8">
+                        <h2 style="text-align: right" class="fs-3">آخرین دوره ها</h2>
+                    </div>
+                </div>
+
+                <!-- Tabs content START -->
+                <div class="tab-content" id="course-pills-tabContent">
+                    <!-- Content START -->
+                    <div class="tab-pane fade show active" id="course-pills-tabs-1" role="tabpanel"
+                         aria-labelledby="course-pills-tab-1">
+                        <div class="row g-4">
+
+                            <!-- Card item START -->
+                            {% for course in latest_courses %}
+                                <div class="col-sm-6 col-lg-4 col-xl-3">
+                                    <div class="card shadow h-100">
+                                        <!-- Image -->
+                                        <a href="{{ course.get_absolute_url }}">
+                                            {% if course.thumbnail %}
+                                                <img src="{{ course.thumbnail.url }}"
+                                                     class="card-img-top  h-200px w-100" style="object-fit: cover;"
+                                                     alt="{{ course.title }}">
+                                            {% else %}
+                                                <img src="{% static 'main/images/image_not_available.jpg' %}"
+                                                     class="card-img-top  h-200px w-100" style="object-fit: cover;"
+                                                     alt="{{ course.title }}">
+                                            {% endif %}
+                                        </a>
+                                        <!-- Card body -->
+                                        <div class="card-body pb-0">
+                                            <!-- Badge and favorite -->
+                                            <div class="d-flex justify-content-between mb-2">
+                                                {% if course.level == 'introductory' %}
+                                                    <span class="badge bg-success bg-opacity-10 text-success">سطح مقدماتی</span>
+                                                {% endif %}
+                                                {% if course.level == 'advanced' %}
+                                                    <span class="badge bg-danger bg-opacity-10 text-danger">سطح پیشرفته</span>
+                                                {% endif %}
+                                                {% if course.level == 'introductory_advanced' %}
+                                                    <span class="badge bg-purple bg-opacity-10 text-purple">سطح از مقدماتی تا پیشرفته</span>
+                                                {% endif %}
+                                            </div>
+                                            <!-- Title -->
+                                            <h5 class="card-title fw-normal"><a
+                                                    href="{{ course.get_absolute_url }}">{{ course.title }}</a>
+                                            </h5>
+                                            <div class="d-flex justify-content-between mt-4">
+                                                <span class="h6 fw-light mb-0"><i
+                                                        class="far fa-clock text-danger me-2"></i>{{ course.duration }}</span>
+                                                <span class="h6 fw-light mb-0"><i
+                                                        class="fas fa-table text-orange me-2"></i>{{ course.video_count }} ویدیو</span>
+                                            </div>
+                                            {#<p class="mb-2 text-truncate-2">{{ course.description|safe|truncatewords:13 }}</p>#}
+                                        </div>
+                                        <!-- Card footer -->
+                                        <div class="card-footer pt-0 pb-3">
+                                            <hr>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar avatar-sm">
+                                                        <img class="avatar-img rounded-1"
+                                                             src="{% static 'main/images/avatar/10.jpg' %}"
+                                                             alt="avatar">
+                                                    </div>
+                                                    <p class="mb-0 ms-2"><a href="#"
+                                                                            class="h6 fw-light mb-0">{{ course.teacher }}</a>
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    {% if course.is_paid == 'premium' %}
+                                                        <h5 style="text-align: left"
+                                                            class="text-success mb-0 item-show">{{ course.price|format_price }}تومان</h5>
+                                                    {% else %}
+                                                        <h5 style="text-align: left"
+                                                            class="text-success mb-0 item-show">رایگان</h5>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <!-- Card item END -->
+
+                        </div> <!-- Row END -->
+                    </div>
+                    <!-- Content END -->
+                </div>
+                <!-- Tabs content END -->
+            </div>
+        </section>
+        <!-- =======================
+        Latest course END -->
+
+        <!-- =======================
+        Recommended course START -->
+        <section>
+            <div class="container">
+                <!-- Title -->
+                <div class="row mb-4">
+                    <div class="col-lg-8">
+                        <h2 style="text-align: right" class="fs-3">دوره های پیشنهادی</h2>
+                    </div>
+                </div>
+
+                <!-- Tabs content START -->
+                <div class="tab-content" id="course-pills-tabContent">
+                    <!-- Content START -->
+                    <div class="tab-pane fade show active" id="course-pills-tabs-1" role="tabpanel"
+                         aria-labelledby="course-pills-tab-1">
+                        <div class="row g-4">
+
+                            <!-- Card item START -->
+                            {% for course in recommended_courses %}
+                                <div class="col-sm-6 col-lg-4 col-xl-3">
+                                    <div class="card shadow h-100">
+                                        <!-- Image -->
+                                        <a href="{{ course.get_absolute_url }}">
+                                            {% if course.thumbnail %}
+                                                <img src="{{ course.thumbnail.url }}"
+                                                     class="card-img-top  h-200px w-100" style="object-fit: cover;"
+                                                     alt="{{ course.title }}">
+                                            {% else %}
+                                                <img src="{% static 'main/images/image_not_available.jpg' %}"
+                                                     class="card-img-top  h-200px w-100" style="object-fit: cover;"
+                                                     alt="{{ course.title }}">
+                                            {% endif %}
+                                        </a>
+                                        <!-- Card body -->
+                                        <div class="card-body pb-0">
+                                            <!-- Badge and favorite -->
+                                            <div class="d-flex justify-content-between mb-2">
+                                                {% if course.level == 'introductory' %}
+                                                    <span class="badge bg-success bg-opacity-10 text-success">سطح مقدماتی</span>
+                                                {% endif %}
+                                                {% if course.level == 'advanced' %}
+                                                    <span class="badge bg-danger bg-opacity-10 text-danger">سطح پیشرفته</span>
+                                                {% endif %}
+                                                {% if course.level == 'introductory_advanced' %}
+                                                    <span class="badge bg-purple bg-opacity-10 text-purple">سطح از مقدماتی تا پیشرفته</span>
+                                                {% endif %}
+                                            </div>
+                                            <!-- Title -->
+                                            <h5 class="card-title fw-normal"><a
+                                                    href="{{ course.get_absolute_url }}">{{ course.title }}</a>
+                                            </h5>
+                                            <div class="d-flex justify-content-between mt-4">
+                                                <span class="h6 fw-light mb-0"><i
+                                                        class="far fa-clock text-danger me-2"></i>{{ course.duration }}</span>
+                                                <span class="h6 fw-light mb-0"><i
+                                                        class="fas fa-table text-orange me-2"></i>{{ course.video_count }} ویدیو</span>
+                                            </div>
+                                            {#<p class="mb-2 text-truncate-2">{{ course.description|safe|truncatewords:13 }}</p>#}
+                                        </div>
+                                        <!-- Card footer -->
+                                        <div class="card-footer pt-0 pb-3">
+                                            <hr>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar avatar-sm">
+                                                        <img class="avatar-img rounded-1"
+                                                             src="{% static 'main/images/avatar/10.jpg' %}"
+                                                             alt="avatar">
+                                                    </div>
+                                                    <p class="mb-0 ms-2"><a href="#"
+                                                                            class="h6 fw-light mb-0">{{ course.teacher }}</a>
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    {% if course.is_paid == 'premium' %}
+                                                        <h5 style="text-align: left"
+                                                            class="text-success mb-0 item-show">{{ course.price|format_price }}تومان</h5>
+                                                    {% else %}
+                                                        <h5 style="text-align: left"
+                                                            class="text-success mb-0 item-show">رایگان</h5>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <!-- Card item END -->
+
+                        </div> <!-- Row END -->
+                    </div>
+                    <!-- Content END -->
+                </div>
+                <!-- Tabs content END -->
+            </div>
+        </section>
+        <!-- =======================
+        Recommended course END -->
+
+        <!-- =======================
+        Action box START -->
+        <section class="pt-0 pt-lg-5">
+            <div class="container position-relative">
+                <!-- SVG decoration START -->
+                <figure class="position-absolute top-50 start-50 translate-middle ms-2">
+                    <svg>
+                        <path class="fill-white opacity-4"
+                              d="m496 22.999c0 10.493-8.506 18.999-18.999 18.999s-19-8.506-19-18.999 8.507-18.999 19-18.999 18.999 8.506 18.999 18.999z"/>
+                        <path class="fill-white opacity-4"
+                              d="m775 102.5c0 5.799-4.701 10.5-10.5 10.5-5.798 0-10.499-4.701-10.499-10.5 0-5.798 4.701-10.499 10.499-10.499 5.799 0 10.5 4.701 10.5 10.499z"/>
+                        <path class="fill-white opacity-4"
+                              d="m192 102c0 6.626-5.373 11.999-12 11.999s-11.999-5.373-11.999-11.999c0-6.628 5.372-12 11.999-12s12 5.372 12 12z"/>
+                        <path class="fill-white opacity-4"
+                              d="m20.499 10.25c0 5.66-4.589 10.249-10.25 10.249-5.66 0-10.249-4.589-10.249-10.249-0-5.661 4.589-10.25 10.249-10.25 5.661-0 10.25 4.589 10.25 10.25z"/>
+                    </svg>
+                </figure>
+                <!-- SVG decoration END -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="bg-info p-4 p-sm-5 rounded-3">
+                            <div class="row position-relative">
+                                <!-- Svg decoration -->
+                                <figure class="fill-white opacity-1 position-absolute top-50 start-0 translate-middle-y">
+                                    <svg width="141px" height="141px">
+                                        <path d="M140.520,70.258 C140.520,109.064 109.062,140.519 70.258,140.519 C31.454,140.519 -0.004,109.064 -0.004,70.258 C-0.004,31.455 31.454,-0.003 70.258,-0.003 C109.062,-0.003 140.520,31.455 140.520,70.258 Z"/>
+                                    </svg>
+                                </figure>
+                                <!-- Action box -->
+                                <div class="col-11 mx-auto position-relative">
+                                    <div class="row align-items-center">
+                                        <!-- Title -->
+                                        <div class="col-lg-7">
+                                            <h3 class="text-white">مدرس شویـد!</h3>
+                                            <p class="text-white mb-3 mb-lg-0">ارائه راهکارها و شرایط سخت تایپ به پایان
+                                                رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات
+                                                پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
+                                        </div>
+                                        <!-- Content and input -->
+                                        <div class="col-lg-5 text-lg-end">
+                                            <a href="#" class="btn btn-outline-warning mb-0">ثبت نام</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- Row END -->
+                        </div>
+                    </div>
+                </div> <!-- Row END -->
+            </div>
+        </section>
+        <!-- =======================
+        Action box END -->
+
+    </main>
+    <!-- **************** MAIN CONTENT END **************** -->
+
+{% endblock %}

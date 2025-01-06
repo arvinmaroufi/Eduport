@@ -1,0 +1,680 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load jalali_tags %}
+{% load custom_filters %}
+{% block title %}{{ courses.title }}{% endblock %}
+
+{% block content %}
+    <!-- **************** MAIN CONTENT START **************** -->
+    <main>
+
+        <!-- =======================
+        Page intro START -->
+        <section class="bg-light py-0 py-sm-5">
+            <div class="container">
+                <div class="row py-5 align-items-center">
+                    <div class="col-lg-4 mt-4">
+                        {% if courses.thumbnail %}
+                            <img src="{{ courses.thumbnail.url }}" class="d-sm-none d-lg-flex rounded-4 img-fluid"
+                                 alt="{{ courses.title }}">
+                        {% else %}
+                            <img src="{% static 'main/images/image_not_available.jpg' %}"
+                                 class="d-sm-none d-lg-flex rounded-4 img-fluid" alt="{{ courses.title }}">
+                        {% endif %}
+                    </div>
+                    <div class="col-lg-8 col-md-12">
+                        <!-- Badge -->
+                        {% for category in courses.category.all %}
+                            <a href="{{ category.get_absolute_url }}"><h6 class="mb-3 font-base bg-primary text-white py-2 px-4 rounded-2 d-inline-block">{{ category.title }}</h6></a>
+                        {% endfor %}
+                        {% if courses.course_status == 'completed' %}
+                            <span class="badge bg-success text-white py-2 px-4 rounded-2 d-inline-block">محتوای این دوره تکمیل شده</span>
+                        {% elif courses.course_status == 'in_progress' %}
+                            <span class="badge bg-blue text-white py-2 px-4 rounded-2 d-inline-block">این دوره درحال برگزاری است</span>
+                        {% else %}
+                            <span class="badge bg-orange text-white py-2 px-4 rounded-2 d-inline-block">شروع دوره به زودی</span>
+                        {% endif %}
+                        <!-- Title -->
+                        <h1 class="fs-3">{{ courses.title }}</h1>
+                        <p>{{ courses.description|safe|truncatewords:30 }}</p>
+                        <!-- Content -->
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item me-3 mb-1 mb-sm-0"><i
+                                    class="fas fa-user-graduate text-orange me-2"></i>12 شرکت کننده
+                            </li>
+                            {% if courses.level == 'introductory' %}
+                                <li class="list-inline-item me-3 mb-1 mb-sm-0"><i
+                                        class="fas fa-signal text-success me-2"></i>{{ courses.get_level_display }}</li>
+                            {% endif %}
+                            {% if courses.level == 'advanced' %}
+                                <li class="list-inline-item me-3 mb-1 mb-sm-0"><i
+                                        class="fas fa-signal text-success me-2"></i>{{ courses.get_level_display }}</li>
+                            {% endif %}
+                            {% if courses.level == 'introductory_advanced' %}
+                                <li class="list-inline-item me-3 mb-1 mb-sm-0"><i
+                                        class="fas fa-signal text-success me-2"></i>{{ courses.get_level_display }}</li>
+                            {% endif %}
+
+                            <li class="list-inline-item me-3 mb-1 mb-sm-0"><i
+                                    class="bi bi-calendar text-danger me-2"></i>آخرین بروزرسانی در
+                                تاریخ {{ courses.updated_at|to_jalali:'%Y/%m/%d' }}</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- =======================
+        Page intro END -->
+
+        <!-- =======================
+        Page content START -->
+        <section class="pb-0 py-lg-5">
+            <div class="container">
+                <div class="row">
+                    <!-- Main content START -->
+                    <div class="col-lg-8">
+                        <div class="col-12 position-relative mb-4">
+                            <div class="video-player">
+                                <video controls width="100%" height="100%" class="rounded-4">
+                                    <source src="{% static 'main/images/videos/1080p.mp4' %}" type="video/mp4"
+                                            size="1080">
+                                </video>
+                            </div>
+                        </div>
+                        <div class="card shadow rounded-2 p-0 ">
+                            <!-- Tabs START -->
+                            <div class="card-header border-bottom px-4 py-3">
+                                <ul class="nav nav-pills nav-tabs-line py-0" id="course-pills-tab" role="tablist">
+                                    <!-- Tab item -->
+                                    <li class="nav-item me-2 me-sm-4" role="presentation">
+                                        <button class="nav-link mb-2 mb-md-0 active" id="course-pills-tab-1"
+                                                data-bs-toggle="pill" data-bs-target="#course-pills-1" type="button"
+                                                role="tab" aria-controls="course-pills-1" aria-selected="true">توضیحات
+                                        </button>
+                                    </li>
+                                    <!-- Tab item -->
+                                    <li class="nav-item me-2 me-sm-4" role="presentation">
+                                        <button class="nav-link mb-2 mb-md-0" id="course-pills-tab-2"
+                                                data-bs-toggle="pill"
+                                                data-bs-target="#course-pills-2" type="button" role="tab"
+                                                aria-controls="course-pills-2" aria-selected="false">جلسات دوره
+                                        </button>
+                                    </li>
+                                    <!-- Tab item -->
+                                    <li class="nav-item me-2 me-sm-4" role="presentation">
+                                        <button class="nav-link mb-2 mb-md-0" id="course-pills-tab-3"
+                                                data-bs-toggle="pill"
+                                                data-bs-target="#course-pills-3" type="button" role="tab"
+                                                aria-controls="course-pills-3" aria-selected="false">مدرس
+                                        </button>
+                                    </li>
+                                    <!-- Tab item -->
+{#                                    <li class="nav-item me-2 me-sm-4" role="presentation">#}
+{#                                        <button class="nav-link mb-2 mb-md-0" id="course-pills-tab-4"#}
+{#                                                data-bs-toggle="pill"#}
+{#                                                data-bs-target="#course-pills-4" type="button" role="tab"#}
+{#                                                aria-controls="course-pills-4" aria-selected="false">دیدگاه#}
+{#                                        </button>#}
+{#                                    </li>#}
+                                    <!-- Tab item -->
+                                    <li class="nav-item me-2 me-sm-4" role="presentation">
+                                        <button class="nav-link mb-2 mb-md-0" id="course-pills-tab-5"
+                                                data-bs-toggle="pill"
+                                                data-bs-target="#course-pills-5" type="button" role="tab"
+                                                aria-controls="course-pills-5" aria-selected="false">سوالات متداول
+                                        </button>
+                                    </li>
+                                    <!-- Tab item -->
+                                    <li class="nav-item me-2 me-sm-4" role="presentation">
+                                        <button class="nav-link mb-2 mb-md-0" id="course-pills-tab-6"
+                                                data-bs-toggle="pill"
+                                                data-bs-target="#course-pills-6" type="button" role="tab"
+                                                aria-controls="course-pills-6" aria-selected="false">پرسش و پاسخ
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Tabs END -->
+
+                            <!-- Tab contents START -->
+                            <div class="card-body p-4">
+                                <div class="tab-content pt-2" id="course-pills-tabContent">
+                                    <!-- Content START -->
+                                    <div class="tab-pane fade show active" id="course-pills-1" role="tabpanel"
+                                         aria-labelledby="course-pills-tab-1">
+                                        <!-- Course detail START -->
+                                        <p>{{ courses.description|safe }}</p>
+                                        <!-- Course detail END -->
+
+                                    </div>
+                                    <!-- Content END -->
+
+                                    <!-- Content START -->
+                                    <div class="tab-pane fade" id="course-pills-2" role="tabpanel"
+                                         aria-labelledby="course-pills-tab-2">
+                                        <!-- Course accordion START -->
+                                        <div class="accordion accordion-icon accordion-bg-light" id="accordionExample2">
+                                            <!-- Item -->
+                                            {% for chapter in chapters %}
+                                                <div class="accordion-item mb-3">
+                                                    <h6 class="accordion-header font-base" id="heading-1">
+                                                        <button class="accordion-button fw-bold rounded d-sm-flex d-inline-block collapsed"
+                                                                type="button" data-bs-toggle="collapse"
+                                                                data-bs-target="#collapse-1" aria-expanded="true"
+                                                                aria-controls="collapse-1">{{ chapter.title }}
+                                                            <span class="small ms-0 ms-sm-2">({{ chapter.video_set.count }} ویدیو)</span>
+                                                        </button>
+                                                    </h6>
+                                                    <div id="collapse-1" class="accordion-collapse collapse show"
+                                                         aria-labelledby="heading-1"
+                                                         data-bs-parent="#accordionExample2">
+                                                        <div class="accordion-body mt-3">
+                                                            <!-- Course lecture -->
+                                                            {% for video in chapter.video_set.all %}
+                                                                <div class="d-flex justify-content-between align-items-center">
+                                                                    <div class="position-relative d-flex align-items-center">
+                                                                        <a href="#"
+                                                                           class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
+                                                                            <i class="fas fa-play me-0"></i>
+                                                                        </a>
+                                                                        <span class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">{{ video.title }}</span>
+                                                                    </div>
+                                                                    <p class="mb-0">{{ video.duration }}</p>
+                                                                </div>
+                                                                <hr>
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        <!-- Course accordion END -->
+                                    </div>
+                                    <!-- Content END -->
+
+                                    <!-- Content START -->
+                                    <div class="tab-pane fade" id="course-pills-3" role="tabpanel"
+                                         aria-labelledby="course-pills-tab-3">
+                                        <!-- Card START -->
+                                        <div class="card mb-0 mb-md-4">
+                                            <div class="row g-0 align-items-center">
+                                                <div class="col-md-5">
+                                                    <!-- Image -->
+                                                    <img src="assets/images/instructor/01.jpg"
+                                                         class="img-fluid rounded-3"
+                                                         alt="instructor-image">
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <!-- Card body -->
+                                                    <div class="card-body">
+                                                        <!-- Title -->
+                                                        <h3 class="card-title mb-0 fs-5">مهدی ناصری</h3>
+                                                        <p class="mb-2"></p>
+                                                        <!-- Social button -->
+                                                        <ul class="list-inline mb-3">
+                                                            <li class="list-inline-item me-3">
+                                                                <a href="#" class="fs-5 text-twitter"><i
+                                                                        class="fab fa-twitter-square"></i></a>
+                                                            </li>
+                                                            <li class="list-inline-item me-3">
+                                                                <a href="#" class="fs-5 text-instagram"><i
+                                                                        class="fab fa-instagram-square"></i></a>
+                                                            </li>
+                                                            <li class="list-inline-item me-3">
+                                                                <a href="#" class="fs-5 text-facebook"><i
+                                                                        class="fab fa-facebook-square"></i></a>
+                                                            </li>
+                                                            <li class="list-inline-item me-3">
+                                                                <a href="#" class="fs-5 text-linkedin"><i
+                                                                        class="fab fa-linkedin"></i></a>
+                                                            </li>
+                                                            <li class="list-inline-item">
+                                                                <a href="#" class="fs-5 text-youtube"><i
+                                                                        class="fab fa-youtube-square"></i></a>
+                                                            </li>
+                                                        </ul>
+
+                                                        <!-- Info -->
+                                                        <ul class="list-inline">
+                                                            <li class="list-inline-item">
+                                                                <div class="d-flex align-items-center me-3 mb-2">
+                                                                <span class="icon-md bg-orange bg-opacity-10 text-orange rounded-circle"><i
+                                                                        class="fas fa-user-graduate"></i></span>
+                                                                    <span class="h6 fw-light mb-0 ms-2">9.1k</span>
+                                                                </div>
+                                                            </li>
+                                                            <li class="list-inline-item">
+                                                                <div class="d-flex align-items-center me-3 mb-2">
+                                                                <span class="icon-md bg-warning bg-opacity-15 text-warning rounded-circle"><i
+                                                                        class="fas fa-star"></i></span>
+                                                                    <span class="h6 fw-light mb-0 ms-2">4.5</span>
+                                                                </div>
+                                                            </li>
+                                                            <li class="list-inline-item">
+                                                                <div class="d-flex align-items-center me-3 mb-2">
+                                                                <span class="icon-md bg-danger bg-opacity-10 text-danger rounded-circle"><i
+                                                                        class="fas fa-play"></i></span>
+                                                                    <span class="h6 fw-light mb-0 ms-2">29 دوره آموزشی</span>
+                                                                </div>
+                                                            </li>
+                                                            <li class="list-inline-item">
+                                                                <div class="d-flex align-items-center me-3 mb-2">
+                                                                <span class="icon-md bg-info bg-opacity-10 text-info rounded-circle"><i
+                                                                        class="fas fa-comment-dots"></i></span>
+                                                                    <span class="h6 fw-light mb-0 ms-2">205</span>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Card END -->
+
+                                        <!-- Instructor info -->
+                                        <h5 class="mb-3">درباره مدرس</h5>
+                                        <p class="mb-3">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
+                                            استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و
+                                            سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع
+                                            با
+                                            هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته،
+                                            حال و
+                                            آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری
+                                            را
+                                            برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی
+                                            ایجاد
+                                            کرد. </p>
+                                        <p class="mb-3">در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه
+                                            راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی
+                                            دستاوردهای
+                                            اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار
+                                            گیرد.</p>
+                                        <!-- Email address -->
+                                        <div class="col-12">
+                                            <ul class="list-group list-group-borderless mb-0">
+                                                <li class="list-group-item pb-0">ایمیل: <a href="#" class="ms-2">example@email.com</a>
+                                                </li>
+                                                <li class="list-group-item pb-0">وب سایت: <a href="#" class="ms-2">https://example.com</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- Content END -->
+
+
+                                    <!-- Content START -->
+                                    <div class="tab-pane fade" id="course-pills-5" role="tabpanel"
+                                         aria-labelledby="course-pills-tab-5">
+                                        <!-- Title -->
+                                        <h5 class="mb-3">سوالات متداول</h5>
+                                        <!-- Accordion START -->
+                                        <div class="accordion accordion-flush" id="accordionExample">
+                                            <!-- Item -->
+                                            {% for item in courses.faq_set.all %}
+                                                <div class="accordion-item">
+                                                <h2 class="accordion-header" id="headingOne">
+                                                    <button class="accordion-button collapsed" type="button"
+                                                            data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                                            aria-expanded="true" aria-controls="collapseOne">
+                                                        <span class="text-secondary fw-bold me-3">{{ item.order }}</span>
+                                                        <span class="h6 mb-0">{{ item.title }}</span>
+                                                    </button>
+                                                </h2>
+                                                <div id="collapseOne" class="accordion-collapse collapse show"
+                                                     aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                    <div class="accordion-body pt-0">{{ item.description }}</div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                            <!-- Item -->
+                                        </div>
+                                        <!-- Accordion END -->
+                                    </div>
+                                    <!-- Content END -->
+
+                                    <!-- Content START -->
+                                    <div class="tab-pane fade" id="course-pills-6" role="tabpanel"
+                                         aria-labelledby="course-pills-tab-6">
+                                        <!-- Review START -->
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h5 class="mb-4">پرسش و پاسخ</h5>
+
+                                                <!-- Comment box -->
+                                                {% if request.user.is_authenticated %}
+                                                    <div class="d-flex mb-4">
+                                                        <!-- Avatar -->
+                                                        <div class="avatar avatar-sm flex-shrink-0 me-2">
+                                                            <a href="#"> <img class="avatar-img rounded-circle" src="{% static 'main/images/default_profile_image.png' %}" alt=""> </a>
+                                                        </div>
+
+                                                        <form class="w-100 d-flex" method="post">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" id="parent_id" name="parent_id" value="">
+                                                            <textarea class="one form-control pe-4 bg-light" id="body" name="body" rows="1" placeholder="افزودن پرسش ..." required></textarea>
+                                                            <button class="btn btn-primary ms-2 mb-0" type="submit">ارسال</button>
+                                                        </form>
+                                                    </div>
+                                                {% else %}
+                                                    <a class="btn btn-danger" href="#login">برای ارسال نظر ابتدا باید وارد شوید</a>
+                                                {% endif %}
+
+                                                <!-- Comment item START -->
+                                                <div class="border p-2 p-sm-4 rounded-3 mb-4">
+                                                    <ul class="list-unstyled mb-0">
+                                                        {% for comment in courses.comments.all %}
+                                                        {% if comment.parent is None %}
+                                                            {% if comment.status == 'published' %}
+                                                                <li class="comment-item">
+                                                                    <div class="d-flex mb-3">
+                                                                        <!-- Avatar -->
+                                                                        <div class="avatar avatar-sm flex-shrink-0">
+                                                                            <a href="#"><img class="avatar-img rounded-circle" src="{% static 'main/images/default_profile_image.png' %}" alt=""></a>
+                                                                        </div>
+                                                                        <div class="ms-2">
+                                                                            <!-- Comment by -->
+                                                                            <div class="bg-light p-3 rounded">
+                                                                                <div class="d-flex justify-content-center">
+                                                                                    <div class="me-2">
+                                                                                        <h6 class="mb-1 fw-normal"><a href="#!">{{ comment.user.username }}</a></h6>
+                                                                                        <p class="mb-0">{{ comment.body }}</p>
+                                                                                    </div>
+                                                                                    <small>{{ comment.created_at|to_jalali:'%Y/%m/%d' }}</small>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- Comment react -->
+                                                                            <ul class="nav nav-divider py-2 small">
+                                                                                <li class="nav-item"><button class="text-secondary-hover badge bg-secondary" onclick="set_value({{ comment.id }})"> پاسخ</button></li>
+                                                                                <li class="nav-item"><a class="text-primary-hover" href="{% url 'CourseApp:delete_comment' comment.id %}">حذف</a></li>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <!-- Comment item nested START -->
+                                                                    <ul class="list-unstyled ms-4">
+                                                                        <!-- Comment item START -->
+                                                                        {% for reply in comment.replies.all %}
+                                                                            {% if reply.status == 'published' %}
+                                                                                <li class="comment-item">
+                                                                                    <div class="d-flex">
+                                                                                        <!-- Avatar -->
+                                                                                        <div class="avatar avatar-xs flex-shrink-0">
+                                                                                            <a href="#"><img class="avatar-img rounded-circle" src="{% static 'main/images/default_profile_image.png' %}" alt=""></a>
+                                                                                        </div>
+                                                                                        <!-- Comment by -->
+                                                                                        <div class="ms-2">
+                                                                                            <div class="bg-light p-3 rounded">
+                                                                                                <div class="d-flex justify-content-center">
+                                                                                                    <div class="me-2">
+                                                                                                        <h6 class="mb-1 fw-normal"><a href="#">{{ reply.user.username }}</a></h6>
+                                                                                                        <p class=" mb-0">{{ reply.body }}</p>
+                                                                                                    </div>
+                                                                                                    <small>{{ reply.created_at|to_jalali:'%Y/%m/%d' }}</small>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <!-- Comment react -->
+                                                                                            <ul class="nav nav-divider py-2 small">
+                                                                                                <li class="nav-item"><a
+                                                                                                        class="text-primary-hover" href="{% url 'CourseApp:delete_comment' reply.id %}">حذف</a></li>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                        <!-- Comment item END -->
+                                                                    </ul>
+                                                                    <!-- Comment item nested END -->
+                                                                </li>
+                                                            {% endif %}
+                                                        {% endif %}
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                                <!-- Comment item END -->
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!-- Content END -->
+
+                                </div>
+                            </div>
+                            <!-- Tab contents END -->
+                        </div>
+                    </div>
+                    <!-- Main content END -->
+
+                    <!-- Right sidebar START -->
+                    <div class="col-lg-4 pt-5 pt-lg-0">
+                        <div class="row mb-5 mb-lg-0">
+                            <div class="col-md-6 col-lg-12">
+                                <!-- Video START -->
+                                <div class="card shadow p-2 mb-4 z-index-9">
+
+
+                                    <!-- Card body -->
+                                    <div class="card-body px-3">
+                                        <!-- Info -->
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <!-- Price and time -->
+                                            <div>
+                                                <div class="d-flex align-items-center">
+                                                    {% if courses.is_paid == 'premium' %}
+                                                        <h3 class="fw-bold mb-0 fs-5 me-2">{{ courses.price|format_price }}
+                                                            تومان</h3>
+                                                        <span class="text-decoration-line-through mb-0 me-2">100,000</span>
+                                                        <span class="badge text-bg-orange mb-0">60% تخفیف</span>
+                                                    {% else %}
+                                                        <h3 class="fw-bold mb-0 fs-5 me-2">رایگان</h3>
+                                                    {% endif %}
+                                                </div>
+                                                <p class="mb-0 text-danger"><i class="fas fa-stopwatch me-2"></i>5 روز
+                                                    باقی مانده</p>
+                                            </div>
+
+                                            <!-- Share button with dropdown -->
+                                            <div class="dropdown">
+                                                <!-- Share button -->
+                                                <a href="#" class="btn btn-sm btn-light rounded small" role="button"
+                                                   id="dropdownShare" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fas fa-fw fa-share-alt"></i>
+                                                </a>
+                                                <!-- dropdown button -->
+                                                <ul class="dropdown-menu dropdown-w-sm dropdown-menu-end min-w-auto shadow rounded"
+                                                    aria-labelledby="dropdownShare">
+                                                    <li><a class="dropdown-item" href="#"><i
+                                                            class="fab fa-twitter-square me-2"></i>Twitter</a></li>
+                                                    <li><a class="dropdown-item" href="#"><i
+                                                            class="fab fa-facebook-square me-2"></i>Facebook</a></li>
+                                                    <li><a class="dropdown-item" href="#"><i
+                                                            class="fab fa-linkedin me-2"></i>LinkedIn</a></li>
+                                                    <li><a class="dropdown-item" href="#"><i
+                                                            class="fas fa-copy me-2"></i>کپی
+                                                        لینک</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <!-- Buttons -->
+                                        <div class="mt-3 d-sm-flex justify-content-sm-between">
+                                            <a href="#" class="btn btn-success mb-0"><span class="bi bi-cart"></span>افزودن به سبد خرید</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Video END -->
+
+                                <!-- Course info START -->
+                                <div class="card card-body shadow p-4 mb-4">
+                                    <!-- Title -->
+                                    <h4 class="mb-3 fs-5">مشخصات دوره</h4>
+                                    <ul class="list-group list-group-borderless">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span class="h6 fw-light mb-0"><i
+                                                class="fas fa-fw fa-book-open text-primary"></i>تعداد ویدیو ها</span>
+                                            <span>{{ courses.video_count }}</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span class="h6 fw-light mb-0"><i
+                                                    class="fas fa-fw fa-clock text-primary"></i>مدت زمان دوره</span>
+                                            {% if courses.duration.total_seconds > 3599 %}
+                                                <span>{{ courses.formatted_duration }} ساعت</span>
+                                            {% else %}
+                                                <span>{{ courses.formatted_duration }} دقیقه</span>
+                                            {% endif %}
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span class="h6 fw-light mb-0"><i
+                                                    class="fas fa-fw fa-signal text-primary"></i>سطح دوره</span>
+                                            <span>{{ courses.get_level_display }}</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span class="h6 fw-light mb-0"><i
+                                                class="fas fa-fw fa-user-clock text-primary"></i>تاریخ آخرین بروزرسانی</span>
+                                            <span>{{ courses.updated_at|to_jalali:'%Y/%m/%d' }}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- Course info END -->
+                            </div>
+
+                            <div class="col-md-6 col-lg-12">
+                                <!-- Recently Viewed START -->
+                                <div class="card card-body shadow p-4 mb-4">
+                                    <!-- Title -->
+                                    <h4 class="mb-3 fs-5">آخرین دوره ها</h4>
+                                    <!-- Course item START -->
+                                    {% for course in latest_courses %}
+                                        <div class="row gx-3 mb-3">
+                                            <!-- Image -->
+                                            <div class="col-4">
+                                                <a href="{% url 'CourseApp:course_detail' course.slug %}">
+                                                    {% if course.thumbnail %}
+                                                        <img class="rounded" src="{{ course.thumbnail.url }}" alt="{{ course.title }}">
+                                                    {% else %}
+                                                        <img class="rounded" src="{% static 'main/images/image_not_available.jpg' %}" alt="{{ course.title }}">
+                                                    {% endif %}
+                                                </a>
+                                            </div>
+                                            <!-- Info -->
+                                            <div class="col-8">
+                                                <h6 class="mb-0 fw-normal"><a href="{% url 'CourseApp:course_detail' course.slug %}">{{ course.title }}</a>
+                                                </h6>
+                                                <ul class="list-group list-group-borderless mt-1 d-flex justify-content-between">
+                                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                                        {% if course.is_paid == 'premium' %}
+                                                            <span class="text-success">{{ course.price|format_price }} تومان</span>
+                                                        {% else %}
+                                                            <span class="text-success">رایگان</span>
+                                                        {% endif %}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    <!-- Course item END -->
+                                </div>
+                                <!-- Recently Viewed END -->
+                            </div>
+                        </div><!-- Row End -->
+                    </div>
+                    <!-- Right sidebar END -->
+
+                </div><!-- Row END -->
+            </div>
+        </section>
+        <!-- =======================
+        Page content END -->
+
+        <!-- =======================
+        Listed courses START -->
+        <section class="pt-0">
+            <div class="container">
+                <!-- Title -->
+                <div class="row mb-4">
+                    <h2 class="mb-0 fs-4">دوره های پیشنهادی</h2>
+                </div>
+
+                <div class="row">
+                    <!-- Slider START -->
+                    <div class="tiny-slider arrow-round arrow-blur arrow-hover">
+                        <div class="tiny-slider-inner" data-autoplay="false" data-arrow="true" data-edge="2"
+                             data-dots="false" data-items="3" data-items-lg="2" data-items-sm="1">
+
+                            <!-- Card item START -->
+                            {% for course in recommended_courses %}
+                                <div class="col-sm-6 col-xl-4">
+                                    <div class="card shadow h-100">
+                                        <!-- Image -->
+                                        <a href="{% url 'CourseApp:course_detail' course.slug %}">
+                                            {% if course.thumbnail %}
+                                                <img src="{{ course.thumbnail.url }}" style="width: 440px;height: 250px;" class="card-img-top" alt="{{ course.title }}">
+                                            {% else %}
+                                                <img src="{% static 'main/images/image_not_available.jpg' %}" style="width: 440px;height: 250px;" class="card-img-top" alt="{{ course.title }}">
+                                            {% endif %}
+                                        </a>
+                                        <!-- Card body -->
+                                        <div class="card-body pb-0">
+                                            <!-- Badge and favorite -->
+                                            <div class="d-flex justify-content-between mb-2">
+                                                {% if course.level == 'introductory' %}
+                                                    <span class="badge bg-success bg-opacity-10 text-success">{{ course.get_level_display }}</span>
+                                                {% endif %}
+                                                {% if course.level == 'advanced' %}
+                                                    <span class="badge bg-danger bg-opacity-10 text-danger">{{ course.get_level_display }}</span>
+                                                {% endif %}
+                                                {% if course.level == 'introductory_advanced' %}
+                                                    <span class="badge bg-purple bg-opacity-10 text-purple">{{ course.get_level_display }}</span>
+                                                {% endif %}
+                                            </div>
+                                            <!-- Title -->
+                                            <h5 class="card-title fw-normal"><a href="{% url 'CourseApp:course_detail' course.slug %}">{{ course.title }}</a></h5>
+                                            <div class="d-flex justify-content-between mt-4">
+                                                <span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>{{ course.formatted_duration }}</span>
+                                                <span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>{{ course.video_count }} ویدیو</span>
+                                            </div>
+                                        </div>
+                                        <!-- Card footer -->
+                                        <div class="card-footer pt-0 pb-3">
+                                            <hr>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar avatar-sm">
+                                                        <img class="avatar-img rounded-1" src="{% static 'main/images/avatar/10.jpg' %}" alt="avatar">
+                                                    </div>
+                                                    <p class="mb-0 ms-2"><a href="#" class="h6 fw-light mb-0">{{ course.teacher }}</a></p>
+                                                </div>
+                                                <div>
+                                                    {% if course.is_paid == 'premium' %}
+                                                        <h5 style="text-align: left" class="text-success mb-0 item-show">{{ course.price|format_price }} تومان</h5>
+                                                    {% else %}
+                                                        <h5 style="text-align: left" class="text-success mb-0 item-show">رایگان</h5>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <!-- Card item END -->
+                        </div>
+                    </div>
+                    <!-- Slider END -->
+                </div>
+            </div>
+        </section>
+        <!-- =======================
+        Listed courses END -->
+
+    </main>
+    <!-- **************** MAIN CONTENT END **************** -->
+    <script>
+        function set_value(id){
+            document.getElementById('parent_id').value = id;
+            window.location.href = '#body'
+        }
+    </script>
+{% endblock %}
