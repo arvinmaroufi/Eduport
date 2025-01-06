@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from AccountApp.models import User
 from ckeditor_uploader.fields import RichTextUploadingField
 from django_resized import ResizedImageField
 from datetime import timedelta

@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-from pathlib import Path
-=======
->>>>>>> 74890f0d71a9b3bb3baafb04c56c73df4e21cfb9
 import os
 from pathlib import Path
 from dotenv import load_dotenv
@@ -23,24 +19,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD
-    # My_App
+    #My_App
     'CourseApp',
-    # Installed App
+    "AccountApp.apps.AccountappConfig",
+    #Installed
     'django_cleanup.apps.CleanupConfig',
     'ckeditor',
     'jalali_date',
-=======
-    #My_App
-    "AccountApp.apps.AccountappConfig",
-    #Installed
     'django_recaptcha',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
->>>>>>> 74890f0d71a9b3bb3baafb04c56c73df4e21cfb9
 ]
 
 MIDDLEWARE = [
@@ -116,7 +107,6 @@ MEDIA_URL = 'media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-<<<<<<< HEAD
 # CKEditor Settings
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_IMAGE_BACKEND = "pillow"
@@ -165,7 +155,7 @@ JALALI_DATE_DEFAULTS = {
         }
     },
 }
-=======
+
 RECAPTCHA_PUBLIC_KEY = os.getenv('RECAPTCHA_PUBLIC_KEY')
 RECAPTCHA_PRIVATE_KEY = os.getenv('RECAPTCHA_PRIVATE_KEY')
 
@@ -203,4 +193,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'Ashkanghodrati0@gmail.com'
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
->>>>>>> 74890f0d71a9b3bb3baafb04c56c73df4e21cfb9
+
+
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
